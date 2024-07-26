@@ -1,0 +1,85 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ['setuptools >= 61.0', 'versioneer[toml]']
+
+[project]
+name = "puma"
+description = """\
+This repository provides a set of core functions for several \
+Photovoltaic Utility and Manufacturing systems of ISC Konstanz e.V."""
+
+authors = [
+    {name = "ISC Konstanz e.V."}
+]
+maintainers = [
+    {name = "Adrian Minde", email = "adrian.minde@isc-konstanz.de"}
+]
+
+urls.author = "https://isc-konstanz.de"
+urls.source = "https://github.com/isc-konstanz/puma/"
+urls.issues = "https://github.com/isc-konstanz/puma/issues"
+
+classifiers = [
+    "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent"
+]
+
+readme = "README.md"
+requires-python = ">= 3.9"
+license.file = "LICENSE"
+dynamic = ["version"]
+
+
+dependencies = [
+    "loris @ git+https://github.com/isc-konstanz/loris.git@stable"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit",
+    "ruff"
+]
+
+[tool.setuptools.package-data]
+puma = []
+
+[tool.setuptools.packages.find]
+namespaces = false
+exclude = [
+    "doc",
+    "data*"
+]
+
+[tool.versioneer]
+VCS = "git"
+style = "pep440"
+versionfile_source = "puma/_version.py"
+versionfile_build = "puma/_version.py"
+parentdir_prefix = "puma-"
+tag_prefix = "v"
+
+[project.scripts]
+puma = "puma.__main__:main"
+
+[tool.autoflake]
+expand-star-imports = true
+remove-unused-variables = true
+ignore-init-module-imports = true
+remove-all-unused-imports = true
+
+[tool.isort]
+profile = "black"
+line_length = 120
+src_paths = ["puma"]
+known_first_party = ["puma", "loris", "numpy", "pandas", "pytz"]
+extra_standard_library = ["dateutil"]
+
+[tool.black]
+target-version = ["py39"]
+line-length = 120
