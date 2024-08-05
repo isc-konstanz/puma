@@ -12,7 +12,10 @@ __version__ = _version.get_versions().get("version")
 del _version
 
 from . import components  # noqa: F401
-from .components import ModuleSpecifications  # noqa: F401
+from .components import (  # noqa: F401
+    Furnace,
+    ModuleSpecifications,
+)
 
 from . import system  # noqa: F401
 from .system import System  # noqa: F401

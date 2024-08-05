@@ -7,35 +7,42 @@ puma.components.module.specs
 
 from __future__ import annotations
 
-import random
+import pandas as pd
 
-from loris import Configurations
-from loris.components import Component
+from loris import Configurations, Resource, Resources
+from loris.components import Component, register_component_type
 
 
 # noinspection SpellCheckingInspection
+@register_component_type
 class ModuleSpecifications(Component):
-    TYPE = "module"
+    TYPE: str = "modules"
 
-    _offset: int = 0
+    modules: pd.DataFrame
+    columns: Resources
 
     def configure(self, configs: Configurations) -> None:
         super().configure(configs)
-        self.data.add("random_int", name=f"{self.name} Integer [0-10]", connector=None, value_type=int)
-        self.data.add("random_float", name=f"{self.name} Float [0-100]", connector=None, value_type=float)
+        database = configs["connectors"]["database"]
+        if database["type"].lower() == "csv":
+            database["dir"] = str(configs.dirs.conf)
+
+        self.columns = Resources()
+        for column in ["Name", "Technology", "Length", "Width", "N_s",
+                       "I_mp_ref", "V_mp_ref", "I_sc_ref", "V_oc_ref",
+                       "alpha_sc", "beta_oc", "gamma_mp"]:
+            self.columns.append(
+                Resource(
+                    id=column.lower(),
+                    name=column,
+                    type=str if column in ["Name", "Technology"] else int if column in ["N_s"] else float)
+            )
 
     def activate(self) -> None:
         super().activate()
-        # ToDo:
+        self.modules = self.connectors.get_first().read(self.columns)
+        for _, module in self.modules.iterrows():
+            self._logger.info(f"Read module spec: {module.to_dict()}")
 
-    def deactivate(self) -> None:
-        super().deactivate()
-        # ToDo:
-
-    def run(self) -> None:
-        self.data.random_int.value = random.randrange(0, 10)
-        self.data.random_float.value = random.random() * 100.
-
-    @property
-    def type(self) -> str:
-        return self.TYPE
+    # def deactivate(self) -> None:
+    #     super().deactivate()
