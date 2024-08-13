@@ -41,10 +41,12 @@ class System(loris.System):
                 module_temp_mean = self.data[f"{module.id}_temp_mean"]
                 module_temps = [module.data.temp_low, module.data.temp_high]
                 if all(c.is_valid() for c in module_temps):
-                    module_temp_mean.value = np.array([t.value for t in module_temps]).mean()
+                    module_temp_mean.set(
+                        np.array([t.timestamp for t in module_temps]).max(),
+                        np.array([t.value for t in module_temps]).mean()
+                    )
                 else:
                     module_temp_mean.state = ChannelState.NOT_AVAILABLE
-
                 if module_temp_mean.value > 60:
                     self._logger.warning(f"{module.name} Temperature high: {module_temp_mean.value}")
 

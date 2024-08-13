@@ -8,7 +8,7 @@ puma.components.module.specs
 from __future__ import annotations
 
 import random
-import threading
+from threading import Event, Thread
 
 from loris import Configurations
 from loris.components import Component, register_component_type
@@ -16,10 +16,11 @@ from loris.components import Component, register_component_type
 
 # noinspection SpellCheckingInspection
 @register_component_type
-class Furnace(Component):
+class Furnace(Component, Thread):
     TYPE: str = "furnace"
 
-    timer: threading.Timer
+    _interval: int = 1
+    __interrupt: Event = Event()
 
     def configure(self, configs: Configurations) -> None:
         super().configure(configs)
@@ -28,14 +29,39 @@ class Furnace(Component):
 
     def activate(self) -> None:
         super().activate()
-        self.run()
-        self.timer = threading.Timer(5.0, self.run)
-        self.timer.start()
+        self.__interrupt.clear()
+        self.start()
 
     def deactivate(self) -> None:
         super().deactivate()
-        self.timer.cancel()
+        self.interrupt()
+
+    def interrupt(self) -> None:
+        self.__interrupt.set()
 
     def run(self) -> None:
-        self.data.temp_low.value = random.randrange(0, 50)
-        self.data.temp_high.value = random.random() * 70. + 30
+        while not self.__interrupt.is_set():
+            try:
+                if self.data.temp_low.is_valid():
+                    self.data.temp_low.value = int(_lim(0, self.data.temp_low.value + random.randrange(-10, 10)/10, 50))
+                else:
+                    self.data.temp_low.value = random.randrange(0, 50)
+
+                if self.data.temp_high.is_valid():
+                    self.data.temp_high.value = _lim(30, self.data.temp_high.value + random.randrange(-50, 50)/10., 70)
+                else:
+                    self.data.temp_high.value = random.random() * 70. + 30
+
+                self.__interrupt.wait(self._interval)
+
+            except KeyboardInterrupt:
+                self.interrupt()
+                break
+
+
+def _lim(min_val, val, max_val):
+    if val <= min_val:
+        return min_val
+    if val >= max_val:
+        return max_val
+    return val
