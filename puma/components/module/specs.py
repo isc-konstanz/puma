@@ -40,9 +40,12 @@ class ModuleSpecifications(Component):
 
     def activate(self) -> None:
         super().activate()
-        self.modules = self.connectors.get_first().read(self.columns)
+        self.modules = self._read_modules()
         for _, module in self.modules.iterrows():
             self._logger.info(f"Read module spec: {module.to_dict()}")
 
     # def deactivate(self) -> None:
     #     super().deactivate()
+
+    def _read_modules(self) -> pd.DataFrame:
+        return self.connectors.get_first().read(self.columns)

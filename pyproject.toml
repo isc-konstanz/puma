@@ -37,7 +37,7 @@ dynamic = ["version"]
 
 
 dependencies = [
-    "loris @ git+https://github.com/isc-konstanz/loris.git@stable"
+    "loris @ git+https://github.com/isc-konstanz/loris.git@view"
 ]
 
 [project.optional-dependencies]

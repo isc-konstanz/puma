@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-puma.components.module.specs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+puma.components.machines.furnace
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 """
 
@@ -11,12 +11,13 @@ import random
 from threading import Event, Thread
 
 from loris import Configurations
-from loris.components import Component, register_component_type
+from loris.components import register_component_type
+from puma.components.machines import Machine
 
 
 # noinspection SpellCheckingInspection
 @register_component_type
-class Furnace(Component, Thread):
+class Furnace(Machine, Thread):
     TYPE: str = "furnace"
 
     _interval: int = 1
