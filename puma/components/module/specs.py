@@ -8,7 +8,6 @@ puma.components.module.specs
 from __future__ import annotations
 
 import pandas as pd
-
 from loris import Configurations, Resource, Resources
 from loris.components import Component, register_component_type
 
@@ -28,14 +27,26 @@ class ModuleSpecifications(Component):
             database["dir"] = str(configs.dirs.conf)
 
         self.columns = Resources()
-        for column in ["Name", "Technology", "Length", "Width", "N_s",
-                       "I_mp_ref", "V_mp_ref", "I_sc_ref", "V_oc_ref",
-                       "alpha_sc", "beta_oc", "gamma_mp"]:
+        for column in [
+            "Name",
+            "Technology",
+            "Length",
+            "Width",
+            "N_s",
+            "I_mp_ref",
+            "V_mp_ref",
+            "I_sc_ref",
+            "V_oc_ref",
+            "alpha_sc",
+            "beta_oc",
+            "gamma_mp",
+        ]:
             self.columns.append(
                 Resource(
-                    id=column.lower(),
+                    key=column.lower(),
                     name=column,
-                    type=str if column in ["Name", "Technology"] else int if column in ["N_s"] else float)
+                    type=str if column in ["Name", "Technology"] else int if column in ["N_s"] else float,
+                )
             )
 
     def activate(self) -> None:

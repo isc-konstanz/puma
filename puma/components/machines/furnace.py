@@ -7,62 +7,49 @@ puma.components.machines.furnace
 
 from __future__ import annotations
 
-import random
-from threading import Event, Thread
+import datetime as dt
 
-from loris import Configurations
+import numpy as np
+import pandas as pd
+from loris import ChannelState, Configurations
 from loris.components import register_component_type
 from puma.components.machines import Machine
 
 
 # noinspection SpellCheckingInspection
 @register_component_type
-class Furnace(Machine, Thread):
+class Furnace(Machine):
     TYPE: str = "furnace"
-
-    _interval: int = 1
-    __interrupt: Event = Event()
 
     def configure(self, configs: Configurations) -> None:
         super().configure(configs)
-        self.data.add("temp_low", name=f"{self.name} Temperature Low [0-50]", connector=None, type=int)
-        self.data.add("temp_high", name=f"{self.name} Temperature High [30-100]", connector=None, type=float)
 
-    def activate(self) -> None:
-        super().activate()
-        self.__interrupt.clear()
-        self.start()
+        # noinspection PyShadowingBuiltins
+        def _add_channel(key: str, name: str, min: float, max: float, **kwargs) -> None:
+            self.data.add(key, name=name, connector="random", type=float, min=min, max=max, **kwargs)
 
-    def deactivate(self) -> None:
-        super().deactivate()
-        self.interrupt()
+        _add_channel("temp_low", f"{self.name} Temperature Low [0-50]", 5, 55)
+        _add_channel("temp_high", f"{self.name} Temperature High [30-100]", 30, 100)
 
-    def interrupt(self) -> None:
-        self.__interrupt.set()
+        self.data.add(
+            key="temp_mean",
+            name=f"{self.name} Temperature Mean",
+            type=float,
+            connector=None
+        )
 
-    def run(self) -> None:
-        while not self.__interrupt.is_set():
-            try:
-                if self.data.temp_low.is_valid():
-                    self.data.temp_low.value = int(_lim(0, self.data.temp_low.value + random.randrange(-10, 10)/10, 50))
-                else:
-                    self.data.temp_low.value = random.randrange(0, 50)
-
-                if self.data.temp_high.is_valid():
-                    self.data.temp_high.value = _lim(30, self.data.temp_high.value + random.randrange(-50, 50)/10., 70)
-                else:
-                    self.data.temp_high.value = random.random() * 70. + 30
-
-                self.__interrupt.wait(self._interval)
-
-            except KeyboardInterrupt:
-                self.interrupt()
-                break
-
-
-def _lim(min_val, val, max_val):
-    if val <= min_val:
-        return min_val
-    if val >= max_val:
-        return max_val
-    return val
+    def run(
+        self,
+        start: pd.Timestamp | dt.datetime = None,
+        end: pd.Timestamp | dt.datetime = None,
+        **kwargs
+    ) -> pd.DataFrame:
+        module_temps = [self.data.temp_low, self.data.temp_high]
+        if all(c.is_valid() for c in module_temps):
+            self.data.temp_mean.set(
+                np.array([t.timestamp for t in module_temps]).max(),
+                np.array([t.value for t in module_temps]).mean(),
+            )
+        else:
+            self.data.temp_mean.state = ChannelState.NOT_AVAILABLE
+        return self.get(start, end, **kwargs)
