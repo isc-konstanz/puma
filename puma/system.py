@@ -21,8 +21,8 @@ class System(loris.System):
         super().configure(configs)
         if self.has_type(Furnace):
             self.data.add(
-                key=f"furnace_temp_mean",
-                name=f"Furnaces Temperature Mean",
+                key=f"furnaces_tube_temp_mean",
+                name=f"Furnaces tube temperature [°C]",
                 type=float,
                 connector=None
             )
@@ -38,14 +38,14 @@ class System(loris.System):
             furnace_temp_means = []
             for furnace in self.get_all(Furnace):
                 furnace.run(start, end, **kwargs)
-                furnace_temp_means.append(furnace.data.temp_mean)
+                furnace_temp_means.append(furnace.data.tube_temp_mean)
             if len(furnace_temp_means) > 0 and all(c.is_valid() for c in furnace_temp_means):
-                self.data.furnace_temp_mean.set(
+                self.data.furnaces_tube_temp_mean.set(
                     np.array([t.timestamp for t in furnace_temp_means]).max(),
                     np.array([t.value for t in furnace_temp_means]).mean(),
                 )
             else:
-                self.data.furnace_temp_mean.state = ChannelState.NOT_AVAILABLE
+                self.data.furnaces_tube_temp_mean.state = ChannelState.NOT_AVAILABLE
             return self.get(start, end, **kwargs)
 
         except ComponentException as e:
