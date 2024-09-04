@@ -25,21 +25,18 @@ class FurnacePage(ComponentPage[Furnace]):
         overview = self._build_overview()
         layout.card.append(overview, focus=True)
 
-        layout.append(
-            dbc.Row(
-                dbc.Col(self._build_tubes(), width="auto")
-            )
-        )
+        layout.append(dbc.Row(dbc.Col(self._build_tubes(), width="auto")))
 
     def _build_tubes(self) -> html.Div:
-
-        @callback(Output(f"{self.id}-tube-temp-front", "children"),
-                  Output(f"{self.id}-tube-temp-back", "children"),
-                  Input(f"{self.id}-tube-temp-update", "n_intervals"))
+        @callback(
+            Output(f"{self.id}-tube-temp-front", "children"),
+            Output(f"{self.id}-tube-temp-back", "children"),
+            Input(f"{self.id}-tube-temp-update", "n_intervals"),
+        )
         def _update_tubes(*_) -> Tuple[Collection[html.Span], Collection[html.Span]]:
             return (
                 self._get_temperatures("tube_temp_front"),
-                self._get_temperatures("tube_temp_back")
+                self._get_temperatures("tube_temp_back"),
             )
 
         return html.Div(
@@ -68,9 +65,10 @@ class FurnacePage(ComponentPage[Furnace]):
         )
 
     def _build_overview(self) -> html.Div:
-
-        @callback(Output(f"{self.id}-overview", "children"),
-                  Input(f"{self.id}-overview-update", "n_intervals"))
+        @callback(
+            Output(f"{self.id}-overview", "children"),
+            Input(f"{self.id}-overview-update", "n_intervals")
+        )
         def _update_overview(*_) -> Collection[html.Span]:
             return self._get_temperatures("tube_temp_mean")
 
@@ -94,7 +92,7 @@ class FurnacePage(ComponentPage[Furnace]):
         value = round(temperature.value, 0) if temperature.is_valid() else dbc.Spinner()
         style = {
             "color": "#ff746c",
-            "fontSize": "4rem"
+            "fontSize": "4rem",
         }
         return [
             html.Span(value, style=style),

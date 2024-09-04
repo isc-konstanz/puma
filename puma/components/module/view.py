@@ -11,9 +11,8 @@ from __future__ import annotations
 from typing import Dict, List
 
 import dash_bootstrap_components as dbc
-from dash import Input, Output, callback
+from dash import Input, Output, callback, dcc, html
 from dash import dash_table as dt
-from dash import dcc, html
 
 import pandas as pd
 from loris import Connector
@@ -37,18 +36,16 @@ class ModuleSpecificationsPage(ComponentPage[ModuleSpecifications]):
     def create_layout(self, layout: PageLayout) -> None:
         super().create_layout(layout)
 
-        @callback(Output(f"{self.id}-module-specs", "data"),
-                  Input(f"{self.id}-module-specs-update", "n_intervals"))
+        @callback(
+            Output(f"{self.id}-module-specs", "data"),
+            Input(f"{self.id}-module-specs-update", "n_intervals")
+        )
         def _update_specs(*_) -> List[Dict]:
             return self.read_module_specs().to_dict("records")
 
         overview = self._build_overview()
         layout.card.append(overview, focus=True)
-        layout.append(
-            dbc.Row(
-                dbc.Col(overview, width="auto")
-            )
-        )
+        layout.append(dbc.Row(dbc.Col(overview, width="auto")))
 
         layout.append(html.Hr())
         layout.append(
@@ -74,9 +71,10 @@ class ModuleSpecificationsPage(ComponentPage[ModuleSpecifications]):
         )
 
     def _build_overview(self) -> html.Div:
-
-        @callback(Output(f"{self.id}-modules-overview", "children"),
-                  Input(f"{self.id}-modules-overview-update", "n_intervals"))
+        @callback(
+            Output(f"{self.id}-modules-overview", "children"),
+            Input(f"{self.id}-modules-overview-update", "n_intervals"),
+        )
         def _update_overview(*_) -> html.Span:
             module_specs = self.read_module_specs()
             return html.Span(len(module_specs.index), style={"fontSize": "4rem"})

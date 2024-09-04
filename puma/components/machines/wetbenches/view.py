@@ -24,16 +24,13 @@ class WetBenchPage(ComponentPage[WetBench]):
 
         overview = self._build_overview()
         layout.card.append(overview, focus=True)
-        layout.append(
-            dbc.Row(
-                dbc.Col(overview, width="auto")
-            )
-        )
+        layout.append(dbc.Row(dbc.Col(overview, width="auto")))
 
     def _build_overview(self) -> html.Div:
-
-        @callback(Output(f"{self.id}-overview", "children"),
-                  Input(f"{self.id}-overview-update", "n_intervals"))
+        @callback(
+            Output(f"{self.id}-overview", "children"),
+            Input(f"{self.id}-overview-update", "n_intervals")
+        )
         def _update_overview(*_) -> Collection[html.Span]:
             return self._get_acidity()
 
@@ -57,7 +54,7 @@ class WetBenchPage(ComponentPage[WetBench]):
         value = round(acidity.value, 1) if acidity.is_valid() else dbc.Spinner()
         style = {
             "color": "#f6ac69",
-            "fontSize": "4rem"
+            "fontSize": "4rem",
         }
         return [
             html.Span(value, style=style),
