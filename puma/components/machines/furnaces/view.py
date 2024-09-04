@@ -67,7 +67,7 @@ class FurnacePage(ComponentPage[Furnace]):
     def _build_overview(self) -> html.Div:
         @callback(
             Output(f"{self.id}-overview", "children"),
-            Input(f"{self.id}-overview-update", "n_intervals")
+            Input(f"{self.id}-overview-update", "n_intervals"),
         )
         def _update_overview(*_) -> Collection[html.Span]:
             return self._get_temperatures("tube_temp_mean")

@@ -38,7 +38,7 @@ class ModuleSpecificationsPage(ComponentPage[ModuleSpecifications]):
 
         @callback(
             Output(f"{self.id}-module-specs", "data"),
-            Input(f"{self.id}-module-specs-update", "n_intervals")
+            Input(f"{self.id}-module-specs-update", "n_intervals"),
         )
         def _update_specs(*_) -> List[Dict]:
             return self.read_module_specs().to_dict("records")
