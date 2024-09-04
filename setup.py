@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-    puma
-    ~~~~
+puma
+~~~~
 
-    Legacy compatibility setup script for the puma package.
+Legacy compatibility setup script for the puma package.
 
 """
+
 import versioneer
 from setuptools import setup
 

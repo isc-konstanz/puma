@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-    puma.system
-    ~~~~~~~~~~~
+puma.system
+~~~~~~~~~~~
 
 
 """
+
 from __future__ import annotations
 
 import datetime as dt
@@ -21,10 +22,10 @@ class System(loris.System):
         super().configure(configs)
         if self.has_type(Furnace):
             self.data.add(
-                key=f"furnaces_tube_temp_mean",
-                name=f"Furnaces tube temperature [°C]",
+                key="furnaces_tube_temp_mean",
+                name="Furnaces tube temperature [°C]",
                 type=float,
-                connector=None
+                connector=None,
             )
 
     # noinspection PyShadowingBuiltins, PyUnresolvedReferences
@@ -32,7 +33,7 @@ class System(loris.System):
         self,
         start: pd.Timestamp | dt.datetime = None,
         end: pd.Timestamp | dt.datetime = None,
-        **kwargs
+        **kwargs,
     ) -> pd.DataFrame:
         try:
             furnace_temp_means = []

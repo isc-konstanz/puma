@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-puma.components.machines.furnace
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+puma.components.machines.furnaces.furnace
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 """
 
@@ -27,21 +27,21 @@ class Furnace(Machine):
         def _add_channel(key: str, name: str, min: float, max: float, **kwargs) -> None:
             self.data.add(key, name=name, connector="random", type=float, min=min, max=max, **kwargs)
 
-        _add_channel("tube_temp_front", f"Tube temperature (front) [°C]", 5000, 6000)
-        _add_channel("tube_temp_back", f"Tube temperature (back) [°C]", 4000, 5000)
+        _add_channel("tube_temp_front", "Tube temperature (front) [°C]", 5000, 6000)
+        _add_channel("tube_temp_back", "Tube temperature (back) [°C]", 4000, 5000)
 
         self.data.add(
             key="tube_temp_mean",
-            name=f"Tube temperature mean [°C]",
+            name="Tube temperature mean [°C]",
             type=float,
-            connector=None
+            connector=None,
         )
 
     def run(
         self,
         start: pd.Timestamp | dt.datetime = None,
         end: pd.Timestamp | dt.datetime = None,
-        **kwargs
+        **kwargs,
     ) -> pd.DataFrame:
         tube_temps = [self.data.tube_temp_front, self.data.tube_temp_back]
         if all(c.is_valid() for c in tube_temps):
