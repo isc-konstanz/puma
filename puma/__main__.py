@@ -1,13 +1,13 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 """
-    puma
-    ~~~~
+puma
+~~~~
 
-    To learn how to use photovoltaic utility and manufacturing systems, see "puma --help"
+To learn how to use photovoltaic utility and manufacturing systems, see "puma --help"
 
 """
-import os
+
 from argparse import ArgumentParser, RawTextHelpFormatter
 
 import puma

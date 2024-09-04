@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-puma.components.machines.furnace
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+puma.components.machines.wetbenches.wetbench
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 """
 
@@ -21,9 +21,9 @@ class WetBench(Machine):
         super().configure(configs)
         self.data.add(
             key="acidity",
-            name=f"Acidity [pH]",
+            name="Acidity [pH]",
             type=float,
             min=0,
             max=2,
-            connector="random"
+            connector="random",
         )
