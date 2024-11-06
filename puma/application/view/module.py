@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-loris.components.machines.view
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+puma.application.view.module
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 """
@@ -15,8 +15,8 @@ from dash import Input, Output, callback, dcc, html
 from dash import dash_table as dt
 
 import pandas as pd
-from loris import Connector
-from loris.app.view.pages import ComponentPage, PageLayout, register_component_page
+from lori import Connector
+from lori.application.view.pages import ComponentPage, PageLayout, register_component_page
 from puma.components.module import ModuleSpecifications
 
 

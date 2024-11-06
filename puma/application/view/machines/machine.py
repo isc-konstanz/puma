@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-loris.components.machines.view
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+puma.application.view.machines.machine
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 """
 
 from __future__ import annotations
 
-from loris.app.view.pages import ComponentGroup, register_component_group
+from lori.application.view.pages import ComponentGroup, register_component_group
 from puma.components.machines import Machine
 
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-loris.components.machines.wetbenches.view
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+puma.application.view.machines.wetbench
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 """
@@ -13,7 +13,7 @@ from typing import Collection
 import dash_bootstrap_components as dbc
 from dash import Input, Output, callback, dcc, html
 
-from loris.app.view.pages import ComponentPage, PageLayout, register_component_page
+from lori.application.view.pages import ComponentPage, PageLayout, register_component_page
 from puma.components.machines.wetbenches import WetBench
 
 
