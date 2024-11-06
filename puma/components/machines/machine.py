@@ -7,7 +7,7 @@ puma.components.machines.machine
 
 from __future__ import annotations
 
-from loris.components import Component
+from lori.components import Component
 
 
 class Machine(Component):

@@ -28,12 +28,6 @@ def _get_parser() -> ArgumentParser:
     parser = ArgumentParser(description=__doc__, formatter_class=RawTextHelpFormatter)
     parser.add_argument("-v", "--version", action="version", version="%(prog)s {version}".format(version=__version__))
 
-    subparsers = parser.add_subparsers(dest="action")
-    # subparsers.required = True
-    subparsers.default = "run"
-    subparsers.add_parser("run", help="run local resources, connectors and systems")
-    subparsers.add_parser("start", help="start the local resource system")
-
     return parser
 
 

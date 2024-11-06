@@ -8,9 +8,9 @@ puma.components.module.specs
 from __future__ import annotations
 
 import pandas as pd
-from loris import Configurations, Resource, Resources
-from loris.components import Component, register_component_type
-from loris.connectors import Connector
+from lori import Configurations, Resource, Resources
+from lori.components import Component, register_component_type
+from lori.connectors import Connector
 
 
 # noinspection SpellCheckingInspection
