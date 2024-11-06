@@ -20,7 +20,7 @@ from .components import (  # noqa: F401
 from . import system  # noqa: F401
 from .system import System  # noqa: F401
 
-from loris import Application  # noqa: F401
+from lori import Application  # noqa: F401
 
 
 def load(name: str = "Puma", factory=System, **kwargs) -> Application:

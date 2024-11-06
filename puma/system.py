@@ -10,14 +10,14 @@ from __future__ import annotations
 
 import datetime as dt
 
-import loris
+import lori
 import numpy as np
 import pandas as pd
-from loris import ChannelState, ComponentException, Configurations
+from lori import ChannelState, ComponentException, Configurations
 from puma import Furnace
 
 
-class System(loris.System):
+class System(lori.System):
     def configure(self, configs: Configurations) -> None:
         super().configure(configs)
         if self.has_type(Furnace):

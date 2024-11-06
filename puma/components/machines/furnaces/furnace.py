@@ -11,8 +11,8 @@ import datetime as dt
 
 import numpy as np
 import pandas as pd
-from loris import ChannelState, Configurations
-from loris.components import register_component_type
+from lori import ChannelState, Configurations
+from lori.components import register_component_type
 from puma.components.machines import Machine
 
 
