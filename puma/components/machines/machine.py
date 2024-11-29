@@ -11,4 +11,4 @@ from lori.components import Component
 
 
 class Machine(Component):
-    TYPE: str = "machine"
+    pass

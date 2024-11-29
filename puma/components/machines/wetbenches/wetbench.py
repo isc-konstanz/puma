@@ -11,12 +11,12 @@ from lori import Configurations
 from lori.components import register_component_type
 from puma.components.machines import Machine
 
+TYPE: str = "wetbench"
+
 
 # noinspection SpellCheckingInspection
-@register_component_type
+@register_component_type(TYPE)
 class WetBench(Machine):
-    TYPE: str = "wetbench"
-
     def configure(self, configs: Configurations) -> None:
         super().configure(configs)
         self.data.add(

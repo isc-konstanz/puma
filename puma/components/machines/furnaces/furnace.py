@@ -7,19 +7,16 @@ puma.components.machines.furnaces.furnace
 
 from __future__ import annotations
 
-import datetime as dt
-
-import numpy as np
 import pandas as pd
 from lori import ChannelState, Configurations
 from lori.components import register_component_type
 from puma.components.machines import Machine
 
+TYPE: str = "furnace"
 
-@register_component_type
+
+@register_component_type(TYPE)
 class Furnace(Machine):
-    TYPE: str = "furnace"
-
     def configure(self, configs: Configurations) -> None:
         super().configure(configs)
 
@@ -37,18 +34,17 @@ class Furnace(Machine):
             connector=None,
         )
 
-    def run(
-        self,
-        start: pd.Timestamp | dt.datetime = None,
-        end: pd.Timestamp | dt.datetime = None,
-        **kwargs,
-    ) -> pd.DataFrame:
-        tube_temps = [self.data.tube_temp_front, self.data.tube_temp_back]
-        if all(c.is_valid() for c in tube_temps):
-            self.data.tube_temp_mean.set(
-                np.array([t.timestamp for t in tube_temps]).max(),
-                np.array([t.value for t in tube_temps]).mean(),
-            )
+    def activate(self) -> None:
+        super().activate()
+        tube_temp_channels = [self.data.tube_temp_front, self.data.tube_temp_back]
+        self.data.register(self._tube_callback, *tube_temp_channels, how="all", unique=True)
+
+    def _tube_callback(self, data: pd.DataFrame) -> None:
+        temperatures = data[[c for c in data.columns if "temp" in c]]
+        if not temperatures.empty:
+            temperature_mean = temperatures.ffill().bfill().mean(axis="columns")
+            if len(temperature_mean) == 1:
+                temperature_mean = temperature_mean.iloc[0]
+            self.data.tube_temp_mean.value = temperature_mean
         else:
             self.data.tube_temp_mean.state = ChannelState.NOT_AVAILABLE
-        return self.get(start, end, **kwargs)
