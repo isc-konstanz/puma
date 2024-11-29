@@ -8,16 +8,16 @@ puma.components.module.specs
 from __future__ import annotations
 
 import pandas as pd
-from lori import Configurations, Resource, Resources
+from lori import Configurations, Resource, Resources, ComponentException
 from lori.components import Component, register_component_type
 from lori.connectors import Connector
 
+TYPE: str = "modules"
+
 
 # noinspection SpellCheckingInspection
-@register_component_type
+@register_component_type(TYPE)
 class ModuleSpecifications(Component):
-    TYPE: str = "modules"
-
     _database: str
 
     modules: pd.DataFrame
@@ -68,4 +68,6 @@ class ModuleSpecifications(Component):
     #     super().deactivate()
 
     def _read_module_specs(self) -> pd.DataFrame:
+        if not self.database.is_connected():
+            raise ComponentException(self, "Unable to initiate component for unconnected database")
         return self.database.read(self.columns)

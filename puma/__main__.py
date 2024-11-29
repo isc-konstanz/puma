@@ -13,15 +13,6 @@ from argparse import ArgumentParser, RawTextHelpFormatter
 import puma
 
 
-def main() -> None:
-    with puma.load(parser=_get_parser()) as application:
-        if application.settings["action"] == "run":
-            application.run()
-        elif application.settings["action"] == "start":
-            application.start()
-            application.wait()
-
-
 def _get_parser() -> ArgumentParser:
     from puma import __version__
 
@@ -32,4 +23,5 @@ def _get_parser() -> ArgumentParser:
 
 
 if __name__ == "__main__":
-    main()
+    with puma.load(parser=_get_parser()) as application:
+        application.main()
