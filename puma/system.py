@@ -10,23 +10,17 @@ from __future__ import annotations
 
 import datetime as dt
 
-import loris
-import numpy as np
+import lori
 import pandas as pd
-from loris import ChannelState, ComponentException, Configurations
-from puma import Furnace
+from lori import ComponentException, Configurations
+from puma import Pecvd
 
 
-class System(loris.System):
+class System(lori.System):
     def configure(self, configs: Configurations) -> None:
         super().configure(configs)
-        if self.has_type(Furnace):
-            self.data.add(
-                key="furnaces_tube_temp_mean",
-                name="Furnaces tube temperature [°C]",
-                type=float,
-                connector=None,
-            )
+        if self.has_type(Pecvd):
+            self._logger.info("Pecvd type detected. Configuration complete.")
 
     # noinspection PyShadowingBuiltins, PyUnresolvedReferences
     def run(
@@ -36,17 +30,16 @@ class System(loris.System):
         **kwargs,
     ) -> pd.DataFrame:
         try:
-            furnace_temp_means = []
-            for furnace in self.get_all(Furnace):
-                furnace.run(start, end, **kwargs)
-                furnace_temp_means.append(furnace.data.tube_temp_mean)
-            if len(furnace_temp_means) > 0 and all(c.is_valid() for c in furnace_temp_means):
-                self.data.furnaces_tube_temp_mean.set(
-                    np.array([t.timestamp for t in furnace_temp_means]).max(),
-                    np.array([t.value for t in furnace_temp_means]).mean(),
-                )
-            else:
-                self.data.furnaces_tube_temp_mean.state = ChannelState.NOT_AVAILABLE
+            actual_set_temp = []
+            for pecvd in self.get_all(Pecvd):
+                pecvd.run(start, end, **kwargs)
+
+                for tube in pecvd.tubes:
+                    if 'spike_act_set' in tube.temperatures.data:
+                        actual_set_temp.append(tube.temperatures.data.spike_act_set)
+                    else:
+                        self._logger.warning(f"pecvd.data does not have attribute 'spike_act_set'")
+
             return self.get(start, end, **kwargs)
 
         except ComponentException as e:

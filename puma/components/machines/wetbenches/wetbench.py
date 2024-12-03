@@ -7,8 +7,8 @@ puma.components.machines.wetbenches.wetbench
 
 from __future__ import annotations
 
-from loris import Configurations
-from loris.components import register_component_type
+from lori import Configurations
+from lori.components import register_component_type
 from puma.components.machines import Machine
 
 
