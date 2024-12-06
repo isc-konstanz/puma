@@ -11,7 +11,7 @@ from __future__ import annotations
 from typing import Collection
 
 import dash_bootstrap_components as dbc
-from dash import Input, Output, callback, dcc, html
+from dash import Input, Output, callback, html
 
 from lori.application.view.pages import ComponentPage, PageLayout, register_component_page
 from puma.components.machines.wetbenches import WetBench
@@ -29,7 +29,7 @@ class WetBenchPage(ComponentPage[WetBench]):
     def _build_overview(self) -> html.Div:
         @callback(
             Output(f"{self.id}-overview", "children"),
-            Input(f"{self.id}-overview-update", "n_intervals"),
+            Input(f"view-update", "n_intervals"),
         )
         def _update_overview(*_) -> Collection[html.Span]:
             return self._get_acidity()
@@ -40,11 +40,6 @@ class WetBenchPage(ComponentPage[WetBench]):
                 html.Div(
                     _update_overview(),
                     id=f"{self.id}-overview",
-                ),
-                dcc.Interval(
-                    id=f"{self.id}-overview-update",
-                    interval=1000,
-                    n_intervals=0,
                 ),
             ]
         )
