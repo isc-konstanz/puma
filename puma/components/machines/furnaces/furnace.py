@@ -12,20 +12,18 @@ from lori import ChannelState, Configurations
 from lori.components import register_component_type
 from puma.components.machines import Machine
 
-TYPE: str = "furnace"
 
-
-@register_component_type(TYPE)
+@register_component_type("furnace")
 class Furnace(Machine):
     def configure(self, configs: Configurations) -> None:
         super().configure(configs)
 
         # noinspection PyShadowingBuiltins
-        def _add_channel(key: str, name: str, min: float, max: float, **kwargs) -> None:
-            self.data.add(key, name=name, connector="random", type=float, min=min, max=max, **kwargs)
+        def _add_random(key: str, name: str, min: float, max: float, **kwargs) -> None:
+            self.data.add(key, name=name, type=float, connector="dummy", generator="random", min=min, max=max, **kwargs)
 
-        _add_channel("tube_temp_front", "Tube temperature (front) [°C]", 5000, 6000)
-        _add_channel("tube_temp_back", "Tube temperature (back) [°C]", 4000, 5000)
+        _add_random("tube_temp_front", "Tube temperature (front) [°C]", 5000, 6000)
+        _add_random("tube_temp_back", "Tube temperature (back) [°C]", 4000, 5000)
 
         self.data.add(
             key="tube_temp_mean",
