@@ -20,6 +20,7 @@ from .components import (  # noqa: F401
     ModuleSpecifications,
 )
 
+from .components import manufacturers  # noqa: F401
 
 from lori import Application  # noqa: F401
 

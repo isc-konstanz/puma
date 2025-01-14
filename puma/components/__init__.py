@@ -16,3 +16,8 @@ from .machines import (  # noqa: F401
     PECVD,
     Machine,
 )
+
+from . import manufacturers  # noqa: F401
+from .manufacturers import (  # noqa: F401
+    CPlasma,
+)
