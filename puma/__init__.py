@@ -13,15 +13,16 @@ del _version
 
 from . import components  # noqa: F401
 from .components import (  # noqa: F401
-    Furnace,
+    DiffusionFurnace,
+    FiringFurnace,
+    PECVD,
+    Machine,
     ModuleSpecifications,
 )
 
-from . import system  # noqa: F401
-from .system import System  # noqa: F401
 
 from lori import Application  # noqa: F401
 
 
-def load(name: str = "Puma", factory=System, **kwargs) -> Application:
-    return Application.load(name, factory=factory, **kwargs)
+def load(name: str = "Puma", **kwargs) -> Application:
+    return Application.load(name, **kwargs)

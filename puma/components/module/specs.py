@@ -8,7 +8,7 @@ puma.components.module.specs
 from __future__ import annotations
 
 import pandas as pd
-from lori import Configurations, Resource, Resources, ComponentException
+from lori import ComponentException, Configurations, Resource, Resources
 from lori.components import Component, register_component_type
 from lori.connectors import Connector
 

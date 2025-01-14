@@ -8,8 +8,8 @@ To learn how to use photovoltaic utility and manufacturing systems, see "puma --
 
 """
 
+import os
 from argparse import ArgumentParser, RawTextHelpFormatter
-
 
 os.environ["NUMEXPR_MAX_THREADS"] = str(os.cpu_count())
 
