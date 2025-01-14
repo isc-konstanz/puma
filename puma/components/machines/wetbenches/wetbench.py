@@ -13,17 +13,16 @@ from puma.components.machines import Machine
 
 
 # noinspection SpellCheckingInspection
-@register_component_type
+@register_component_type("wetbench")
 class WetBench(Machine):
-    TYPE: str = "wetbench"
-
     def configure(self, configs: Configurations) -> None:
         super().configure(configs)
         self.data.add(
             key="acidity",
             name="Acidity [pH]",
             type=float,
+            connector="dummy",
+            generator="random",
             min=0,
             max=2,
-            connector="random",
         )

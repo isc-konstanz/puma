@@ -11,6 +11,8 @@ from .module import ModuleSpecifications  # noqa: F401
 
 from . import machines  # noqa: F401
 from .machines import (  # noqa: F401
-    Pecvd,
+    DiffusionFurnace,
+    FiringFurnace,
+    PECVD,
     Machine,
 )
