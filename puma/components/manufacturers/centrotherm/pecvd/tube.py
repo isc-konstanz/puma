@@ -5,10 +5,10 @@ puma.components.machines.thermal.tube
 
 
 """
+
 from typing import List
 
 import pandas as pd
-
 from lori import Configurations
 from lori.util import get_includes
 from puma.components.machines import Machine
@@ -25,7 +25,7 @@ class PlasmaTube(ThermalTube):
         self,
         context: Machine,
         number: int,
-        **kwargs
+        **kwargs,
     ) -> None:
         super().__init__(context, number, **kwargs)
         self.temperatures = PlasmaTemperatures(self)
@@ -33,8 +33,8 @@ class PlasmaTube(ThermalTube):
     def configure(self, configs: Configurations) -> None:
         super().configure(configs)
         number_attr = PlasmaTemperatures.DESC[PlasmaTemperatures.NUMBER]["attribute"]
-        configs.get_section("data", ensure_exists=True)\
-            .get_section("channels", ensure_exists=True)[number_attr] = self.number
+        channel_section = configs.get_section("data", ensure_exists=True).get_section("channels", ensure_exists=True)
+        channel_section[number_attr] = self.number
 
         temperatures_defaults = configs.get(get_includes(PlasmaTemperatures))
         self.temperatures.configure(configs.get_section(PlasmaTemperatures.SECTION, defaults=temperatures_defaults))
@@ -42,13 +42,15 @@ class PlasmaTube(ThermalTube):
     def activate(self) -> None:
         super().activate()
         self.temperatures.activate()
-        temperature_channels = self.temperatures.data[[
-            PlasmaTemperatures.SPIKE_LZ_ACTUAL,
-            PlasmaTemperatures.SPIKE_CENTER_ACTUAL,
-            PlasmaTemperatures.SPIKE_CENTER_LZ_ACTUAL,
-            PlasmaTemperatures.SPIKE_CENTER_GZ_ACTUAL,
-            PlasmaTemperatures.SPIKE_GZ_ACTUAL,
-        ]]
+        temperature_channels = self.temperatures.data[
+            [
+                PlasmaTemperatures.SPIKE_LZ_ACTUAL,
+                PlasmaTemperatures.SPIKE_CENTER_ACTUAL,
+                PlasmaTemperatures.SPIKE_CENTER_LZ_ACTUAL,
+                PlasmaTemperatures.SPIKE_CENTER_GZ_ACTUAL,
+                PlasmaTemperatures.SPIKE_GZ_ACTUAL,
+            ]
+        ]
         self.data.register(self._temperature_callback, *temperature_channels, how="all", unique=False)
 
     def deactivate(self) -> None:

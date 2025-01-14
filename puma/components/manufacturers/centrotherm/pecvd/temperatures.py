@@ -5,6 +5,7 @@ puma.components.manufacturers.centrotherm.pecvd.temperatures
 
 
 """
+
 from typing import Any, Dict, Optional
 
 from lori import Component, Configurations
@@ -240,7 +241,7 @@ class PlasmaTemperatures(Component):
         PADDLE_CENTER_LZ_SETPOINT: {
             "column": "paddle_center_lz_setpoint",
             "name": "Paddle Center LZ setpoint",
-            "type": float
+            "type": float,
         },
         PADDLE_CENTER_LZ_ACTUAL_SETPOINT: {
             "column": "paddle_center_lz_act_set",
@@ -303,7 +304,7 @@ class PlasmaTemperatures(Component):
         self,
         context: Component,
         configs: Optional[Configurations] = None,
-        **kwargs
+        **kwargs,
     ) -> None:
         super().__init__(context, configs, key="temperatures", name="Tube Temperatures", **kwargs)
 
