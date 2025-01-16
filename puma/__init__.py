@@ -21,7 +21,8 @@ from .components import (  # noqa: F401
 )
 
 
-from lori import Application  # noqa: F401
+from . import application  # noqa: F401
+from .application import Application
 
 
 def load(name: str = "Puma", **kwargs) -> Application:
