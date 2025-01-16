@@ -1,28 +1,17 @@
 # -*- coding: utf-8 -*-
 """
-puma.components.machines.furnaces.tube
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+puma.components.machines.firing.tube
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 """
 
 import pandas as pd
 from lori import ChannelState, Configurations
-from puma.components.machines import Machine
 from puma.components.machines.thermal import ThermalTube
-from puma.components.manufacturers.centrotherm.pecvd import PlasmaTemperatures
 
 
 class FiringTube(ThermalTube):
-    def __init__(
-        self,
-        context: Machine,
-        number: int,
-        **kwargs,
-    ) -> None:
-        super().__init__(context, number, **kwargs)
-        self.temperatures = PlasmaTemperatures(self)
-
     def configure(self, configs: Configurations) -> None:
         super().configure(configs)
 
