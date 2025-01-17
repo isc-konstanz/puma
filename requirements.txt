@@ -1,11 +1,14 @@
 versioneer~=0.29
 python-dateutil~=2.9
 pytz~=2024.1
+tzlocal~=5.2
 numpy~=2.0
 pandas~=2.2
+psycopg2~=2.9
+sqlalchemy~=2.0
 requests~=2.32
 pillow~=10.4
 flask~=3.0
 dash~=2.17
 dash-bootstrap-components~=1.6
-lori@git+https://github.com/isc-konstanz/lori.git@view
+lori@git+https://github.com/isc-konstanz/lori.git
