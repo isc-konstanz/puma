@@ -38,7 +38,7 @@ class FiringTubePage(ComponentPage[FiringTube]):
 
         return html.Div(
             [
-                html.H5("Temperature"),
+                html.H5("Mean Temperature"),
                 html.Div(
                     _update_overview(),
                     id=f"{self.id}-overview",

@@ -8,7 +8,7 @@ puma.application.view
 
 from .machines import (  # noqa: F401
     MachineGroup,
-    FurnacePage,
+    FiringFurnacePage,
     WetBenchPage,
 )
 
