@@ -29,7 +29,7 @@ class WetBenchPage(ComponentPage[WetBench]):
     def _build_overview(self) -> html.Div:
         @callback(
             Output(f"{self.id}-overview", "children"),
-            Input(f"view-update", "n_intervals"),
+            Input("view-update", "n_intervals"),
         )
         def _update_overview(*_) -> Collection[html.Span]:
             return self._get_acidity()
