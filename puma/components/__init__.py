@@ -13,7 +13,7 @@ from . import machines  # noqa: F401
 from .machines import (  # noqa: F401
     DiffusionFurnace,
     FiringFurnace,
-    PECVD,
+    Pecvd,
     Machine,
 )
 

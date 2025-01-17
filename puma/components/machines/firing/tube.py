@@ -1,28 +1,17 @@
 # -*- coding: utf-8 -*-
 """
-puma.components.machines.furnaces.tube
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+puma.components.machines.firing.tube
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 """
 
 import pandas as pd
 from lori import ChannelState, Configurations
-from puma.components.machines import Machine
-from puma.components.machines.thermal import ThermalTube
-from puma.components.manufacturers.centrotherm.pecvd import PlasmaTemperatures
+from puma.components.machines import Tube
 
 
-class FiringTube(ThermalTube):
-    def __init__(
-        self,
-        context: Machine,
-        number: int,
-        **kwargs,
-    ) -> None:
-        super().__init__(context, number, **kwargs)
-        self.temperatures = PlasmaTemperatures(self)
-
+class FiringTube(Tube):
     def configure(self, configs: Configurations) -> None:
         super().configure(configs)
 
@@ -30,12 +19,12 @@ class FiringTube(ThermalTube):
         def _add_random(key: str, name: str, min: float, max: float, **kwargs) -> None:
             self.data.add(key, name=name, type=float, connector="dummy", generator="random", min=min, max=max, **kwargs)
 
-        _add_random("temp_front", f"Tube {self.number} temperature (front) [°C]", 5000, 6000)
-        _add_random("temp_back", f"Tube {self.number} temperature (back) [°C]", 4000, 5000)
+        _add_random("temp_front", f"Tube {self.index} temperature (front) [°C]", 5000, 6000)
+        _add_random("temp_back", f"Tube {self.index} temperature (back) [°C]", 4000, 5000)
 
         self.data.add(
             key="temp_mean",
-            name=f"Tube {self.number} temperature mean [°C]",
+            name=f"Tube {self.index} temperature mean [°C]",
             type=float,
             connector=None,
         )

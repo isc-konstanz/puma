@@ -15,14 +15,15 @@ from . import components  # noqa: F401
 from .components import (  # noqa: F401
     DiffusionFurnace,
     FiringFurnace,
-    PECVD,
+    Pecvd,
     Machine,
     ModuleSpecifications,
 )
 
 from .components import manufacturers  # noqa: F401
 
-from lori import Application  # noqa: F401
+from . import application  # noqa: F401
+from .application import Application
 
 
 def load(name: str = "Puma", **kwargs) -> Application:

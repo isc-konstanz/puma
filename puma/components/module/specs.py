@@ -12,11 +12,9 @@ from lori import ComponentException, Configurations, Resource, Resources
 from lori.components import Component, register_component_type
 from lori.connectors import Connector
 
-TYPE: str = "modules"
-
 
 # noinspection SpellCheckingInspection
-@register_component_type(TYPE)
+@register_component_type("modules")
 class ModuleSpecifications(Component):
     _database: str
 
