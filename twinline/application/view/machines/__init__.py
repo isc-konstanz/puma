@@ -1,0 +1,12 @@
+# -*- coding: utf-8 -*-
+"""
+twinline.application.view.machines
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+"""
+
+from .machine import MachineGroup  # noqa: F401
+from .firing import FiringFurnacePage  # noqa: F401
+from .depositors import PecvdPage  # noqa: F401
+from .wetbench import WetBenchPage  # noqa: F401

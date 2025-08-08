@@ -3,7 +3,7 @@ build-backend = "setuptools.build_meta"
 requires = ['setuptools >= 61.0', 'versioneer[toml]']
 
 [project]
-name = "puma"
+name = "twinline"
 description = """\
 This repository provides a set of core functions for several \
 Photovoltaic Utility and Manufacturing systems of ISC Konstanz e.V."""
@@ -16,8 +16,8 @@ maintainers = [
 ]
 
 urls.author = "https://isc-konstanz.de"
-urls.source = "https://github.com/isc-konstanz/puma/"
-urls.issues = "https://github.com/isc-konstanz/puma/issues"
+urls.source = "https://github.com/isc-konstanz/twinline/"
+urls.issues = "https://github.com/isc-konstanz/twinline/issues"
 
 classifiers = [
     "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
@@ -47,7 +47,7 @@ dev = [
 ]
 
 [tool.setuptools.package-data]
-puma = []
+twinline = []
 
 [tool.setuptools.packages.find]
 namespaces = false
@@ -59,19 +59,19 @@ exclude = [
 [tool.versioneer]
 VCS = "git"
 style = "pep440"
-versionfile_source = "puma/_version.py"
-versionfile_build = "puma/_version.py"
-parentdir_prefix = "puma-"
+versionfile_source = "twinline/_version.py"
+versionfile_build = "twinline/_version.py"
+parentdir_prefix = "twinline-"
 tag_prefix = "v"
 
 [project.scripts]
-puma = "puma.__main__:main"
+twinline = "twinline.__main__:main"
 
 [tool.ruff]
 indent-width = 4
 line-length = 120
 target-version = "py39"
-exclude = ["puma/_version.py"]
+exclude = ["twinline/_version.py"]
 
 [tool.ruff.lint]
 select = [
@@ -86,4 +86,4 @@ select = [
 
 [tool.ruff.lint.isort]
 extra-standard-library = ["dateutil"]
-known-first-party = ["puma", "lori", "numpy", "pandas", "pytz"]
+known-first-party = ["twinline", "lori", "numpy", "pandas", "pytz"]

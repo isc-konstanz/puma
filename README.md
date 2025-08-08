@@ -20,20 +20,20 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/isc-konstanz/puma">
+  <a href="https://github.com/isc-konstanz/twinline">
     <img src="doc/_images/lori-logo-isc.png" alt="Lori Logo">
   </a>
-  <h1 align="center">puma</h1>
+  <h1 align="center">twinline</h1>
   <p align="center">
-    Puma is an open-source software package for <em><b>P</b>hotovoltaic <b>U</b>tility and <b>Ma</b>nufacturing systems</em> <br>made with lori, powered by ISC Konstanz e.V.  
+    TwinLine is an open-source software package for <em>photovoltaic production line twins</em> <br>made with lori, powered by ISC Konstanz e.V.  
     <br />
-    <a href="https://puma.readthedocs.io"><strong>Explore the docs »</strong></a>
+    <a href="https://twinline.readthedocs.io"><strong>Explore the docs »</strong></a>
     <!--
     <br />
     <br />
-    <a href="https://github.com/isc-konstanz/puma/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    <a href="https://github.com/isc-konstanz/twinline/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     ·
-    <a href="https://github.com/isc-konstanz/puma/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+    <a href="https://github.com/isc-konstanz/twinline/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
     -->  
   </p>
 </div>
@@ -62,8 +62,8 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This repository provides a set of core functions for several
-***P**hotovoltaic **U**tility and **Ma**nufacturing systems* of ISC Konstanz e.V.  
+This repository provides a set of core functions to provide SCADA systems, advanced analytics and insights based on 
+digital twins in the context of production lines in photovoltaic manufacturing, by ISC Konstanz e.V.  
 
 More detailed information about the project will be added here in the future.
 
@@ -88,12 +88,12 @@ is a good reference for virtual environments.
 
 - Clone the GitHub repository
    ```sh
-   git clone -b stable https://github.com/isc-konstanz/puma.git puma
+   git clone -b stable https://github.com/isc-konstanz/twinline.git twinline
    ```
 - Optionally, create or activate virtual environment
 - Install Python package
    ```sh
-   pip install puma
+   pip install twinline
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -110,7 +110,7 @@ More detailed information about how to use the package will be added here in the
 <!-- LICENSE -->
 ## License
 
-Distributed under the LGPLv3 License. See [`LICENSE`](https://github.com/isc-konstanz/puma/blob/main/LICENSE) for more information.
+Distributed under the LGPLv3 License. See [`LICENSE`](https://github.com/isc-konstanz/twinline/blob/main/LICENSE) for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -120,7 +120,7 @@ Distributed under the LGPLv3 License. See [`LICENSE`](https://github.com/isc-kon
 
 ![ISC logo](doc/_images/isc-logo-full.png)
 
-The puma project was authored by [**ISC** Konstanz e.V.](https://isc-konstanz.de/)
+The twinline project was authored by [**ISC** Konstanz e.V.](https://isc-konstanz.de/)
 (International Solar Energy Research Center).
 
 To get in touch with the developers, please take a look at the [Contact](doc/contact.md) site.
@@ -130,13 +130,13 @@ To get in touch with the developers, please take a look at the [Contact](doc/con
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/isc-konstanz/puma.svg?style=for-the-badge
-[contributors-url]: https://github.com/isc-konstanz/puma/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/isc-konstanz/puma.svg?style=for-the-badge
-[forks-url]: https://github.com/isc-konstanz/puma/network/members
-[stars-shield]: https://img.shields.io/github/stars/isc-konstanz/puma.svg?style=for-the-badge
-[stars-url]: https://github.com/isc-konstanz/puma/stargazers
-[issues-shield]: https://img.shields.io/github/issues/isc-konstanz/puma.svg?style=for-the-badge
-[issues-url]: https://github.com/isc-konstanz/puma/issues
-[license-shield]: https://img.shields.io/github/license/isc-konstanz/puma.svg?style=for-the-badge
-[license-url]: https://github.com/isc-konstanz/puma/blob/main/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/isc-konstanz/twinline.svg?style=for-the-badge
+[contributors-url]: https://github.com/isc-konstanz/twinline/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/isc-konstanz/twinline.svg?style=for-the-badge
+[forks-url]: https://github.com/isc-konstanz/twinline/network/members
+[stars-shield]: https://img.shields.io/github/stars/isc-konstanz/twinline.svg?style=for-the-badge
+[stars-url]: https://github.com/isc-konstanz/twinline/stargazers
+[issues-shield]: https://img.shields.io/github/issues/isc-konstanz/twinline.svg?style=for-the-badge
+[issues-url]: https://github.com/isc-konstanz/twinline/issues
+[license-shield]: https://img.shields.io/github/license/isc-konstanz/twinline.svg?style=for-the-badge
+[license-url]: https://github.com/isc-konstanz/twinline/blob/main/LICENSE

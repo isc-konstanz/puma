@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-puma
+twinline
 ~~~~
 
-Legacy compatibility setup script for the puma package.
+Legacy compatibility setup script for the twinline package.
 
 """
 
